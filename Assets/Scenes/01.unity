@@ -270,6 +270,7 @@ GameObject:
   - component: {fileID: 203213347}
   - component: {fileID: 203213349}
   - component: {fileID: 203213348}
+  - component: {fileID: 203213350}
   m_Layer: 5
   m_Name: SuivantImage
   m_TagString: Untagged
@@ -316,7 +317,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300000, guid: 3a3dd081ba1dc824993feefa25c0e3bb, type: 3}
   m_Type: 0
-  m_PreserveAspect: 1
+  m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -328,6 +329,20 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 203213346}
+--- !u!114 &203213350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 203213346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2614e6dfca831b40b781ceb4e854b99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flou: 1
+  imagePasfloue: {fileID: 21300000, guid: 3a3dd081ba1dc824993feefa25c0e3bb, type: 3}
+  imageFloue: {fileID: 21300000, guid: 7aa39e039f865704cb89f0622f64fa2a, type: 3}
 --- !u!1 &716550494
 GameObject:
   m_ObjectHideFlags: 0
@@ -782,6 +797,7 @@ GameObject:
   - component: {fileID: 1787299889}
   - component: {fileID: 1787299891}
   - component: {fileID: 1787299890}
+  - component: {fileID: 1787299892}
   m_Layer: 5
   m_Name: PieceImage
   m_TagString: Untagged
@@ -828,7 +844,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300000, guid: bddc431df81fee34ca7cf98e4057e56b, type: 3}
   m_Type: 0
-  m_PreserveAspect: 1
+  m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -840,6 +856,20 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1787299888}
+--- !u!114 &1787299892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1787299888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2614e6dfca831b40b781ceb4e854b99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flou: 1
+  imagePasfloue: {fileID: 21300000, guid: bddc431df81fee34ca7cf98e4057e56b, type: 3}
+  imageFloue: {fileID: 21300000, guid: eff786de4590167429f7508d5a9b0423, type: 3}
 --- !u!1 &1840859430
 GameObject:
   m_ObjectHideFlags: 0
@@ -850,6 +880,7 @@ GameObject:
   - component: {fileID: 1840859431}
   - component: {fileID: 1840859433}
   - component: {fileID: 1840859432}
+  - component: {fileID: 1840859434}
   m_Layer: 5
   m_Name: PrecedentImage
   m_TagString: Untagged
@@ -896,7 +927,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300000, guid: bc634ead0ff8d21468bbff1b44fcd422, type: 3}
   m_Type: 0
-  m_PreserveAspect: 1
+  m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -908,6 +939,20 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1840859430}
+--- !u!114 &1840859434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1840859430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2614e6dfca831b40b781ceb4e854b99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flou: 1
+  imagePasfloue: {fileID: 21300000, guid: bc634ead0ff8d21468bbff1b44fcd422, type: 3}
+  imageFloue: {fileID: 21300000, guid: 741902119b3338c44a03cdfe81810310, type: 3}
 --- !u!1 &2023769493
 GameObject:
   m_ObjectHideFlags: 0

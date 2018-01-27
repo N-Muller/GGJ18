@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class Zone : MonoBehaviour, IPointerClickHandler {
 
@@ -10,13 +11,17 @@ public class Zone : MonoBehaviour, IPointerClickHandler {
 	public Sprite imageFloue;
 
 	void OnEnable(){
-		GetComponent<SpriteRenderer> ().sprite = flou?imageFloue:imagePasfloue;
+		//TODO si player traitre :
+		//GetComponent<Image> ().sprite = imagePasfloue;
+		//Else
+		GetComponent<Image> ().sprite = flou?imageFloue:imagePasfloue;
 	}
 
 	#region IPointerClickHandler implementation
 	public void OnPointerClick (PointerEventData eventData)
 	{
 		flou = false;
+		GetComponent<Image> ().sprite = flou?imageFloue:imagePasfloue;
 	}
 	#endregion
 }
