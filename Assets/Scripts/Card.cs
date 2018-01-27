@@ -9,10 +9,12 @@ public class Card : MonoBehaviour, IPointerEnterHandler,IPointerExitHandler {
 	public bool selected = false;
 	public float upFactor = 100.0f;
 	public float scaleFactor = 2.0f;
+	public Vector3 startPos;
 	
 	// Update is called once per frame
 	void Start() {
 		setActiveZone (false);
+		startPos = transform.position;
 	}
 
 	#region IPointerEnterHandler implementation
