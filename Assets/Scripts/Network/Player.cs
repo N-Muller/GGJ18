@@ -49,24 +49,14 @@ class Player : NetworkBehaviour
 
 		Debug.Assert (isServer == true, "This function is supposed to be called by the server");
 
-		if (!Players.Exists (p => p.ready = false) && !PlayersInitialized) {
+		if (!Players.Exists (p => p.ready = false) && Players.Count == Constants.PlayerCount && !PlayersInitialized) {
 			InitPlayers ();
 		}
-	}
-
-	[ClientRpc]
-	void RpcInit( /* Role r, List<int> cards*/ )
-	{
-		/*
-		role = r;
-		hand = cards;
-		*/
 	}
 
 
 	static void InitPlayers()
 	{
-
 		int fourbe = UnityEngine.Random.Range (0, Players.Count);
 		List<int> deck = new List<int> ();
 
@@ -98,46 +88,10 @@ class Player : NetworkBehaviour
 	[ClientRpc]
 	void RpcSyncClient(string serializedPlayerData)
 	{
-		
 		SerializedPlayerData data = JsonUtility.FromJson<SerializedPlayerData> (serializedPlayerData);
 
 		role = data.role;
 		hand = data.hand;
 	}
 
-	[SyncVar]
-	int health;
-
-	[ClientRpc]
-	void RpcDamage(int amount)
-	{
-		Debug.Log("Took damage:" + amount);
-	}
-
-
-	[Command]
-	void CmdDamage(int amount)
-	{
-		print ("eeee");
-		TakeDamage (amount);
-	}
-
-
-	public void DoCmdDamage(int amount)
-	{
-		if (!isLocalPlayer)
-			return;
-		
-		CmdDamage (amount);
-
-	}
-
-	public void TakeDamage(int amount)
-	{
-		if (!isServer)
-			return;
-
-		health -= amount;
-		RpcDamage(amount);
-	}
 }
