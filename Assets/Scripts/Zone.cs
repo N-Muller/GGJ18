@@ -17,11 +17,17 @@ public class Zone : MonoBehaviour, IPointerClickHandler {
 		GetComponent<Image> ().sprite = flou?imageFloue:imagePasfloue;
 	}
 
+	void Start(){
+
+	}
+
 	#region IPointerClickHandler implementation
 	public void OnPointerClick (PointerEventData eventData)
 	{
-		flou = false;
-		GetComponent<Image> ().sprite = flou?imageFloue:imagePasfloue;
+
+			flou = false;
+			GetComponent<Image> ().sprite = flou ? imageFloue : imagePasfloue;
+
 	}
 	#endregion
 }
