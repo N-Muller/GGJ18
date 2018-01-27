@@ -35,9 +35,10 @@ public class Card : MonoBehaviour, IPointerEnterHandler,IPointerExitHandler {
 	{
 		selected = false;
 		setActiveZone (false);
-		transform.position = transform.position - Vector3.up*upFactor;
+
 
 		transform.localScale -= new Vector3(scaleFactor,scaleFactor,0f);
+		transform.position = startPos;
 	}
 
 	#endregion

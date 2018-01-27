@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class DragMe : MonoBehaviour, IBeginDragHandler, IDragHandler,IEndDragHandler,IPointerClickHandler
+public class DragMe : MonoBehaviour, IBeginDragHandler, IDragHandler,IEndDragHandler
 {
 	//public Vector3 oldPosition; 
 
@@ -43,17 +43,4 @@ public class DragMe : MonoBehaviour, IBeginDragHandler, IDragHandler,IEndDragHan
 
 		dropable = false;
 	}
-
-
-	//Used for default placing when object is instantied
-	#region IPointerClickHandler implementation
-
-	public void OnPointerClick (PointerEventData eventData)
-	{
-		/*if (oldParent == null && GetComponent<InfoController>() != null) {
-			gameObject.transform.SetParent (GameObject.FindGameObjectWithTag("DefaultInfoContainer").transform);
-		}*/
-	}
-
-	#endregion
 }
