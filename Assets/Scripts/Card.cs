@@ -10,7 +10,15 @@ public class Card : MonoBehaviour, IPointerEnterHandler,IPointerExitHandler {
 	public float upFactor = 100.0f;
 	public float scaleFactor = 2.0f;
 	public Vector3 startPos;
-	
+	public List<Zone> zones;
+
+	[ContextMenu("Initialize")]
+	void ContexMenuInit()
+	{
+		zones = new List<Zone> (GetComponentsInChildren<Zone> ());
+	}
+
+
 	// Update is called once per frame
 	void Start() {
 		setActiveZone (false);
@@ -44,7 +52,7 @@ public class Card : MonoBehaviour, IPointerEnterHandler,IPointerExitHandler {
 	#endregion
 
 	void setActiveZone(bool b){
-		foreach(Zone zone in GetComponentsInChildren<Zone>())
+		foreach(Zone zone in zones)
 		{
 			zone.enabled = b;	
 			zone.GetComponent<Image> ().raycastTarget = b;

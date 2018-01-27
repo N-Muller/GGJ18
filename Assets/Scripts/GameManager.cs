@@ -1,20 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class GameManager : MonoBehaviour {
+public class GameManager : NetworkBehaviour {
 
-	List<Player> players;
+	public static GameManager Instance;
+
+	[SyncVar]
+	public int turn;
+
 
 	// Use this for initialization
 	void Start () {
-		
+		Instance = this;
 	}
 
 
 	void StartGame ()
 	{
-		players = new List<Player> (transform.root.GetComponentsInChildren<Player> ());
+		Debug.Assert (isServer, "StartGame called on client!!!");
+
+		turn = 0;
+
 
 
 
