@@ -14,7 +14,9 @@ public class Zone : MonoBehaviour, IPointerClickHandler {
 		//TODO si player traitre :
 		//GetComponent<Image> ().sprite = imagePasfloue;
 		//Else
-		GetComponent<Image> ().sprite = flou?imageFloue:imagePasfloue;
+		/*if (isActiveAndEnabled == true) {
+			GetComponent<Image> ().sprite = flou ? imageFloue : imagePasfloue;
+		}*/
 	}
 
 	void Start(){
@@ -24,10 +26,10 @@ public class Zone : MonoBehaviour, IPointerClickHandler {
 	#region IPointerClickHandler implementation
 	public void OnPointerClick (PointerEventData eventData)
 	{
-
+		/*if (isActiveAndEnabled == true) {
 			flou = false;
 			GetComponent<Image> ().sprite = flou ? imageFloue : imagePasfloue;
-
+		}*/
 	}
 	#endregion
 }
