@@ -1,32 +1,11 @@
 ﻿using UnityEngine.Networking;
 using UnityEngine;
-using System.Collections.Generic;
-using System;
 
 class Player : NetworkBehaviour
 {
-	enum Type { None, Peasant, Fourbe }
-
-	[Serializable]
-	public class Card
-	{
-		int id;
-
-		public Card(int id)
-		{
-			this.id = id;
-		}
-	}
 
 	[SyncVar]
-	Type type = Type.None;
-	[SyncVar]
-	List<Card> hand;
-
-
-
-
-
+	int health;
 
 	[ClientRpc]
 	void RpcDamage(int amount)
@@ -49,6 +28,7 @@ class Player : NetworkBehaviour
 			return;
 		
 		CmdDamage (amount);
+
 	}
 
 	public void TakeDamage(int amount)
@@ -56,7 +36,7 @@ class Player : NetworkBehaviour
 		if (!isServer)
 			return;
 
-		// health -= amount;
+		health -= amount;
 		RpcDamage(amount);
 	}
 }
