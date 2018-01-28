@@ -16,7 +16,7 @@ public class RawCardSet : MonoBehaviour {
 			this.s = s;
 		}
 	}
-
+		
 	int nbCard = 12;
 	int nbCardTable = 4;
 	List<int> pool = new List<int>();
