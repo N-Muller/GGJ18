@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using System;
 
 public class Zone : MonoBehaviour, IPointerClickHandler {
 
@@ -17,6 +18,9 @@ public class Zone : MonoBehaviour, IPointerClickHandler {
 
 	public Card card;
 	public int card_id;
+
+	public Action onClick;
+
 
 	void Start(){
 		card_id = card.data.id;
@@ -35,11 +39,8 @@ public class Zone : MonoBehaviour, IPointerClickHandler {
 	public void OnPointerClick (PointerEventData eventData)
 	{
 		if (isActiveAndEnabled == true) {
-			if (Player.LocalPlayer.role == Player.Role.Fourbe) {
-				//Change image
-			} else {
-				Player.LocalPlayer.Reveal (this);
-			}
+			if (onClick != null)
+				onClick.Invoke ();
 		}
 	}
 	#endregion

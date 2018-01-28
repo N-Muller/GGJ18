@@ -37,9 +37,19 @@ public class Card : MonoBehaviour, IPointerEnterHandler,IPointerExitHandler {
 		this.data = data;
 
 		if (Player.LocalPlayer.role == Player.Role.Fourbe) {
-			precedent.image.sprite = ResourcesLoader.Load<Sprite> (spriteFolderPath + Constants.IdToImageName(data.idprec));
-			suivant.image.sprite = ResourcesLoader.Load<Sprite> (spriteFolderPath + Constants.IdToImageName(data.idnext));
-			principale.image.sprite = ResourcesLoader.Load<Sprite> (spriteFolderPath + Constants.IdToImageName(data.id));
+			precedent.image.sprite = ResourcesLoader.Load<Sprite> (spriteFolderPath + data.imagePrecedent);
+			suivant.image.sprite = ResourcesLoader.Load<Sprite> (spriteFolderPath + data.imageSuivant);
+			principale.image.sprite = ResourcesLoader.Load<Sprite> (spriteFolderPath + data.imagePrincipale);
+
+			precedent.onClick = () => {
+				this.data.imagePrecedent = Constants.Images [Random.Range (0, Constants.Images.Length)];
+				Player.LocalPlayer.CmdReveal (JsonUtility.ToJson (this.data));
+			};
+
+			suivant.onClick = () => {
+				this.data.imageSuivant = Constants.Images [Random.Range (0, Constants.Images.Length)];
+				Player.LocalPlayer.CmdReveal (JsonUtility.ToJson (this.data));
+			};
 		} else {
 			if (data.precedanteRevelee) {
 				precedent.image.sprite = ResourcesLoader.Load<Sprite> (spriteFolderPath + data.imagePrecedent);
@@ -48,6 +58,13 @@ public class Card : MonoBehaviour, IPointerEnterHandler,IPointerExitHandler {
 			else {
 				precedent.image.sprite = ResourcesLoader.Load<Sprite> (spriteFolderPath + Constants.UnknownZone);
 				precedent.enabled = true;
+
+
+				precedent.onClick = () => {
+					this.data.precedanteRevelee = true;
+					Player.LocalPlayer.CmdReveal ( JsonUtility.ToJson (this.data));
+				};
+
 			}
 			if (data.suivanteRevelee) {
 				suivant.image.sprite = ResourcesLoader.Load<Sprite> (spriteFolderPath + data.imageSuivant);
@@ -56,6 +73,11 @@ public class Card : MonoBehaviour, IPointerEnterHandler,IPointerExitHandler {
 			else {
 				suivant.image.sprite = ResourcesLoader.Load<Sprite> (spriteFolderPath + Constants.UnknownZone);
 				suivant.enabled = true;
+
+				suivant.onClick = () => {
+					this.data.suivanteRevelee = true;
+					Player.LocalPlayer.CmdReveal (JsonUtility.ToJson (this.data));
+				};
 			}
 
 			if (data.principaleRevelee) {
@@ -65,6 +87,11 @@ public class Card : MonoBehaviour, IPointerEnterHandler,IPointerExitHandler {
 			else {
 				principale.image.sprite = ResourcesLoader.Load<Sprite> (spriteFolderPath + Constants.UnknownZone);
 				principale.enabled = true;
+
+				principale.onClick = () => {
+					this.data.principaleRevelee = true;
+					Player.LocalPlayer.CmdReveal (JsonUtility.ToJson (this.data));
+				};
 			}
 			
 
