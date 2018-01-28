@@ -15,6 +15,12 @@ public class Zone : MonoBehaviour, IPointerClickHandler {
 		}
 	}
 
+	public Card card;
+	public int card_id;
+
+	void Start(){
+		card_id = card.data.id;
+	}
 
 	void OnEnable(){
 		//TODO si player traitre :
@@ -25,16 +31,12 @@ public class Zone : MonoBehaviour, IPointerClickHandler {
 		}*/
 	}
 
-	void Start(){
-
-	}
-
 	#region IPointerClickHandler implementation
 	public void OnPointerClick (PointerEventData eventData)
 	{
 		if (isActiveAndEnabled == true) {
 			if (Player.LocalPlayer.role == Player.Role.Fourbe) {
-
+				//Change image
 			} else {
 				Player.LocalPlayer.Reveal (this);
 			}

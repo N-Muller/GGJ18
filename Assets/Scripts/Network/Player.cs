@@ -246,10 +246,19 @@ class Player : NetworkBehaviour
 	{
 		CardFactory.Instance.UpdateCard (JsonUtility.FromJson<CardData> (serializedDat));
 	}
+		
+	[Command]
+	void CmdReveal (int playerId)
+	{
+		//hasPlayed = true;
+		//CardData dat = CardFactory.Instance.Cards [z.card_id].data;
 
+		//RpcBroadcast (JsonUtility.ToJson(dat));
+	}
 
 	public void Reveal (Zone z)
 	{
+		Debug.Log ("reveal");
 
 	}
 

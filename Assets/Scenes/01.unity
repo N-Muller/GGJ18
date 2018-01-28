@@ -1139,7 +1139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &737722493
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1204,7 +1204,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 737722492}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 683, y: 384, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1009285276}
@@ -1464,14 +1464,8 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4032520610591344, guid: 9702a4d8c678ada41848668e6e60a3b3, type: 2}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114457403501939120, guid: 9702a4d8c678ada41848668e6e60a3b3,
-        type: 2}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 8c6eac9618940754aa29a29b51c0b30b,
-        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9702a4d8c678ada41848668e6e60a3b3, type: 2}
   m_IsPrefabParent: 0
@@ -1828,79 +1822,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turn: 0
-  cards:
-  - titre: 5
-    imagePrincipale: unknown
-    imagePrecedent: unknown
-    imageSuivant: unknown
-    id: 5
-    idprec: -1
-    idnext: 3
-    principaleRevelee: 0
-    suivanteRevelee: 0
-    precedanteRevelee: 0
-    isOnTable: 0
-    slotOnTable: -1
-  - titre: 3
-    imagePrincipale: unknown
-    imagePrecedent: unknown
-    imageSuivant: unknown
-    id: 3
-    idprec: 5
-    idnext: 1
-    principaleRevelee: 0
-    suivanteRevelee: 0
-    precedanteRevelee: 0
-    isOnTable: 0
-    slotOnTable: -1
-  - titre: 1
-    imagePrincipale: unknown
-    imagePrecedent: unknown
-    imageSuivant: unknown
-    id: 1
-    idprec: 3
-    idnext: -1
-    principaleRevelee: 0
-    suivanteRevelee: 0
-    precedanteRevelee: 0
-    isOnTable: 0
-    slotOnTable: -1
-  - titre: 2
-    imagePrincipale: unknown
-    imagePrecedent: unknown
-    imageSuivant: unknown
-    id: 2
-    idprec: 4
-    idnext: 0
-    principaleRevelee: 0
-    suivanteRevelee: 0
-    precedanteRevelee: 0
-    isOnTable: 0
-    slotOnTable: -1
-  - titre: 0
-    imagePrincipale: unknown
-    imagePrecedent: unknown
-    imageSuivant: unknown
-    id: 0
-    idprec: 2
-    idnext: 4
-    principaleRevelee: 0
-    suivanteRevelee: 0
-    precedanteRevelee: 0
-    isOnTable: 0
-    slotOnTable: -1
-  - titre: 4
-    imagePrincipale: unknown
-    imagePrecedent: unknown
-    imageSuivant: unknown
-    id: 4
-    idprec: 0
-    idnext: 2
-    principaleRevelee: 0
-    suivanteRevelee: 0
-    precedanteRevelee: 0
-    isOnTable: 0
-    slotOnTable: -1
+  cards: []
   table: 
 --- !u!114 &1212751000
 MonoBehaviour:

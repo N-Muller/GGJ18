@@ -36,6 +36,7 @@ public class GameManager : NetworkBehaviour {
 		RpcUpdateCards (JsonUtility.ToJson (new Wrapper<List<CardData>> (cards)));
 
 		Player.InitPlayers ();
+		RpcUpdateCards (JsonUtility.ToJson (new Wrapper<List<CardData>> (cards)));
 	}
 
 	[ClientRpc]
