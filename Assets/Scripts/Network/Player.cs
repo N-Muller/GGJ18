@@ -54,6 +54,13 @@ class Player : NetworkBehaviour
 		}
 	}
 
+	public void Ready()
+	{
+		if (!isLocalPlayer)
+			return;
+
+		CmdReady ();
+	}
 
 	public static void InitPlayers()
 	{

@@ -28,4 +28,19 @@ public class CardFactory : MonoBehaviour {
 
 		return card;
 	}
+
+	public void UpdateCards( List<CardData> datas )
+	{
+		for (int i = 0; i < datas.Count; i++) {
+			if (i < Cards.Count) {
+				Cards [i].Initialize (datas [i], SpriteFolderPath);
+			} else {
+				CreateCard (datas [i]);
+			}
+		}
+
+		if (datas.Count < Cards.Count) {
+			Debug.LogError ("This was not expected");
+		}
+	}
 }

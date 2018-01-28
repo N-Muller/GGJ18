@@ -45,7 +45,7 @@ public class Card : MonoBehaviour, IPointerEnterHandler,IPointerExitHandler {
 			suivant.image.sprite = ResourcesLoader.Load<Sprite> (spriteFolderPath + data.imageSuivant);
 			principale.image.sprite = ResourcesLoader.Load<Sprite> (spriteFolderPath + data.imagePrincipale);
 		}
-			titre.text = data.titre;
+		titre.text = data.titre;
 	}
 
 

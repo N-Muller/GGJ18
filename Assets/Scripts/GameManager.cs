@@ -23,7 +23,7 @@ public class GameManager : NetworkBehaviour {
 	{
 		Debug.Assert (isServer, "StartGame called on client!!!");
 
-		turn = 0;
+		turn = 5;
 
 		RawCardSet gen = new RawCardSet ();
 
@@ -32,15 +32,12 @@ public class GameManager : NetworkBehaviour {
 		RpcUpdateCards (JsonUtility.ToJson (cards));
 
 		Player.InitPlayers ();
-
-
-
 	}
 
 	[ClientRpc]
 	void RpcUpdateCards(string serializedCards)
 	{
-		cards = JsonUtility.FromJson (serializedCards);
+		cards = JsonUtility.FromJson<List<CardData>> (serializedCards);
 		CardFactory.Instance.UpdateCards (cards);
 	}
 
