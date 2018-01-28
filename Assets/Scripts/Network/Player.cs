@@ -31,7 +31,11 @@ class Player : NetworkBehaviour
 
 	public static bool PlayersInitialized = false;
 
+	[SyncVar]
 	public bool ready = false;
+
+	[SyncVar]
+	public bool hasPlayed = false;
 
 	void Start()
 	{
@@ -39,6 +43,8 @@ class Player : NetworkBehaviour
 			LocalPlayer = this;
 
 		Players.Add (this);
+
+		name = "Player_" + Players.Count;
 	}
 
 
@@ -49,8 +55,8 @@ class Player : NetworkBehaviour
 
 		Debug.Assert (isServer == true, "This function is supposed to be called by the server");
 
-		if (!Players.Exists (p => p.ready = false) && Players.Count == Constants.PlayerCount && !PlayersInitialized) {
-			InitPlayers ();
+		if (!Players.Exists (p => !p.ready ) && Players.Count == Constants.PlayerCount && !PlayersInitialized) {
+			GameManager.Instance.StartGame ();
 		}
 	}
 
@@ -99,6 +105,48 @@ class Player : NetworkBehaviour
 
 		role = data.role;
 		hand = data.hand;
+
+		if (isLocalPlayer) {
+			DropContainer container = DropContainer.ByName ["Main"];
+
+			for (int i = 0; i < hand.Count; i++)
+			{
+				Card c = CardFactory.Instance.Cards [hand [i]];
+				c.gameObject.SetActive (true);
+				c.transform.parent = container.dms [i].transform;
+				c.transform.position = container.dms [i].transform.position;
+
+			}
+		}
 	}
 
+	public void CardDroppedOn(int cardId, DropMe dm )
+	{
+		Card c = CardFactory.Instance.Cards [cardId];
+
+
+
+		switch (dm.name) {
+		case "Table":
+			if (c.data.isOnTable)
+				return;
+
+
+			break;
+		case "Main":
+			if (! c.data.isOnTable)
+				return;
+
+
+			break;
+		case "PlayerDrops":
+
+			break;
+		}
+	}
+
+	public void Reveal (Zone z)
+	{
+
+	}
 }

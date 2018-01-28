@@ -12,6 +12,7 @@ public class DragMe : MonoBehaviour, IBeginDragHandler, IDragHandler,IEndDragHan
 	public GameObject target;
 	public static GameObject point = null;
 	public Vector3 oldPos;
+	DropMe dm;
 
 	void Start(){
 		oldPos = transform.position;
@@ -46,20 +47,17 @@ public class DragMe : MonoBehaviour, IBeginDragHandler, IDragHandler,IEndDragHan
 		if (Physics.Raycast (ray, out info)) {
 			point.transform.position = info.point;
 			t.position = new Vector3 (info.point.x, info.point.y, t.position.z);
-			DropMe dm = info.collider.gameObject.GetComponent<DropMe> ();
+			dm = info.collider.gameObject.GetComponent<DropMe> ();
 			if (dm) {
-				if(dm.container.transform.childCount < dm.maxElements)
-				dropable = true;
-				GetComponent<Card> ().startPos = info.collider.gameObject.transform.position;
-				transform.position = info.collider.gameObject.transform.position;
-				Debug.Log ("Send drop");
+				if (dm.gameObject.transform.childCount < dm.maxElements) {
+					dropable = true;
+					return;
+				}
+			} 
+		} 
 
-			} else {
-				dropable = false;
-			}
-		} else {
-			dropable = false;
-		}
+		dropable = false;
+
 		//Debug.Log ("mtw " + Input.mousePosition);
 	}
 
@@ -70,6 +68,13 @@ public class DragMe : MonoBehaviour, IBeginDragHandler, IDragHandler,IEndDragHan
 			target.transform.position = oldPos;
 
 		} else {
+			Card c = GetComponent<Card> ();
+			c.startPos = dm.transform.position;
+
+			transform.parent = dm.transform;
+			transform.position = dm.transform.position;
+
+			Player.LocalPlayer.CardDroppedOn (c.data.id, dm);
 		}
 
 		dropable = false;

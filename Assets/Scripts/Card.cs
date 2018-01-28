@@ -41,10 +41,36 @@ public class Card : MonoBehaviour, IPointerEnterHandler,IPointerExitHandler {
 			suivant.image.sprite = ResourcesLoader.Load<Sprite> (spriteFolderPath + Constants.IdToImageName(data.idnext));
 			principale.image.sprite = ResourcesLoader.Load<Sprite> (spriteFolderPath + Constants.IdToImageName(data.id));
 		} else {
-			precedent.image.sprite = ResourcesLoader.Load<Sprite> (spriteFolderPath + data.imagePrecedent);
-			suivant.image.sprite = ResourcesLoader.Load<Sprite> (spriteFolderPath + data.imageSuivant);
-			principale.image.sprite = ResourcesLoader.Load<Sprite> (spriteFolderPath + data.imagePrincipale);
+			if (data.precedanteRevelee) {
+				precedent.image.sprite = ResourcesLoader.Load<Sprite> (spriteFolderPath + data.imagePrecedent);
+				precedent.enabled = false;
+			}
+			else {
+				precedent.image.sprite = ResourcesLoader.Load<Sprite> (spriteFolderPath + Constants.UnknownZone);
+				precedent.enabled = true;
+			}
+			if (data.suivanteRevelee) {
+				suivant.image.sprite = ResourcesLoader.Load<Sprite> (spriteFolderPath + data.imageSuivant);
+				suivant.enabled = false;
+			}
+			else {
+				suivant.image.sprite = ResourcesLoader.Load<Sprite> (spriteFolderPath + Constants.UnknownZone);
+				suivant.enabled = true;
+			}
+
+			if (data.principaleRevelee) {
+				principale.image.sprite = ResourcesLoader.Load<Sprite> (spriteFolderPath + data.imagePrincipale);
+				principale.enabled = false;
+			}
+			else {
+				principale.image.sprite = ResourcesLoader.Load<Sprite> (spriteFolderPath + Constants.UnknownZone);
+				principale.enabled = true;
+			}
+			
+
 		}
+
+
 		titre.text = data.titre;
 	}
 

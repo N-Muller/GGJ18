@@ -26,6 +26,8 @@ public class CardFactory : MonoBehaviour {
 
 		Cards.Add (card);
 
+		go.SetActive (false);
+
 		return card;
 	}
 

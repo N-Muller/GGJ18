@@ -6,10 +6,14 @@ using UnityEngine.UI;
 
 public class Zone : MonoBehaviour, IPointerClickHandler {
 
-	public bool flou = true;
-	public Sprite imagePasfloue;
-	public Sprite imageFloue;
-	public Image image;
+	private Image _i;
+	public Image image { 
+		get { 
+			if (_i == null)
+				_i = GetComponent<Image> (); 
+			return _i;
+		}
+	}
 
 
 	void OnEnable(){
@@ -28,10 +32,9 @@ public class Zone : MonoBehaviour, IPointerClickHandler {
 	#region IPointerClickHandler implementation
 	public void OnPointerClick (PointerEventData eventData)
 	{
-		/*if (isActiveAndEnabled == true) {
-			flou = false;
-			GetComponent<Image> ().sprite = flou ? imageFloue : imagePasfloue;
-		}*/
+		if (isActiveAndEnabled == true) {
+			
+		}
 	}
 	#endregion
 }

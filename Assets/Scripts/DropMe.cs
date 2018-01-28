@@ -2,14 +2,14 @@ using System.Reflection;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class DropMe : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerExitHandler
 {
-	public GameObject container;
 	private Color normalColor;
 	public Color highlightColor = Color.grey;
-	public int maxElements = int.MaxValue;
-
+	public int maxElements = 1;
+	public DropContainer container;
 
 	public void OnEnable ()
 	{
@@ -21,18 +21,16 @@ public class DropMe : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointe
 		GetComponent<Renderer>().material.color = normalColor;
 
 		GameObject dropItem = GetDropItem(data);
-		if (dropItem != null && dropItem.GetComponent<DragMe> () != null && container.transform.childCount < maxElements) {
-			dropItem.GetComponent<DragMe>().target.transform.SetParent (container.transform);
+		if (dropItem != null && dropItem.GetComponent<DragMe> () != null && gameObject.transform.childCount < maxElements) {
+			dropItem.GetComponent<DragMe>().target.transform.SetParent (gameObject.transform);
 			dropItem.GetComponent<DragMe>().target.transform.SetAsFirstSibling ();
-
 		}
 	}
 
 	public void OnPointerEnter(PointerEventData data)
 	{
-		Debug.Log ("Enter");
 		GameObject dropItem = GetDropItem(data);
-		if (dropItem != null && dropItem.GetComponent<DragMe> () != null && container.transform.childCount < maxElements) {
+		if (dropItem != null && dropItem.GetComponent<DragMe> () != null && gameObject.transform.childCount < maxElements) {
 			dropItem.GetComponent<DragMe> ().dropable = true;
 
 			GetComponent<Renderer> ().material.color = highlightColor;
@@ -42,7 +40,7 @@ public class DropMe : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointe
 	public void OnPointerExit(PointerEventData data)
 	{		
 		GameObject dropItem = GetDropItem(data);
-		if (dropItem != null && dropItem.GetComponent<DragMe> () != null && container.transform.childCount < maxElements) {
+		if (dropItem != null && dropItem.GetComponent<DragMe> () != null && gameObject.transform.childCount < maxElements) {
 			dropItem.GetComponent<DragMe> ().dropable = false;
 		}
 		GetComponent<Renderer>().material.color = normalColor;

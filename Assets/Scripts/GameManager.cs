@@ -10,18 +10,16 @@ public class GameManager : NetworkBehaviour {
 	[SyncVar]
 	public int turn;
 
-
-	List<CardData> cards;
+	public List<CardData> cards;
 
 	// Use this for initialization
 	void Start () {
 		Instance = this;
 	}
 
-
-	void StartGame ()
+	public void StartGame ()
 	{
-		Debug.Assert (isServer, "StartGame called on client!!!");
+		Debug.Assert (Player.LocalPlayer.isServer, "StartGame called on client!!!");
 
 		turn = 5;
 
@@ -29,17 +27,66 @@ public class GameManager : NetworkBehaviour {
 
 		cards = gen.GenerateCards ();
 
-		RpcUpdateCards (JsonUtility.ToJson (cards));
+		cards.Sort ((a, b) => a.id - b.id);
+
+		RpcUpdateCards (JsonUtility.ToJson (new Wrapper<List<CardData>> (cards)));
 
 		Player.InitPlayers ();
+
+
 	}
 
 	[ClientRpc]
-	void RpcUpdateCards(string serializedCards)
+	public void RpcUpdateCards(string serializedCards)
 	{
-		cards = JsonUtility.FromJson<List<CardData>> (serializedCards);
+		print ("Receiving : " + serializedCards);
+
+
+		cards = JsonUtility.FromJson<Wrapper<List<CardData>>> (serializedCards);
+
+		print ("Cards is now : " + cards.ToString ());
+
 		CardFactory.Instance.UpdateCards (cards);
 	}
+
+	[ClientRpc]
+	public void RpcUpdateTable(string serializedTable)
+	{
+		DropContainer table = DropContainer.ByName ["Table"];
+
+		table.cardInSlot = JsonUtility.FromJson<Wrapper<List<int>>> (serializedTable);
+
+		for (int slotId = 0; slotId < table.cardInSlot.Count; slotId++) {
+			int cardId = table.cardInSlot [slotId];
+			if (cardId != -1) {
+				Card c = CardFactory.Instance.Cards [cardId];
+				c.gameObject.SetActive (true);
+				c.transform.parent = table.dms [slotId].transform;
+				c.transform.position = table.dms [slotId].transform.position;
+			}
+		}
+	}
+
+	[ClientRpc]
+	public void RpcUpdateHand(string serializedHand)
+	{
+		// TODO : this doesn't look good. 
+
+		DropContainer hand = DropContainer.ByName ["Main"];
+
+		hand.cardInSlot = JsonUtility.FromJson<Wrapper<List<int>>> (serializedHand);
+
+		for (int slotId = 0; slotId < hand.cardInSlot.Count; slotId++) {
+			int cardId = hand.cardInSlot [slotId];
+			if (cardId != -1) {
+				Card c = CardFactory.Instance.Cards [cardId];
+				c.gameObject.SetActive (true);
+				c.transform.parent = hand.dms [slotId].transform;
+				c.transform.position = hand.dms [slotId].transform.position;
+			}
+		}
+	}
+
 
 	// Update is called once per frame
 	void Update () {

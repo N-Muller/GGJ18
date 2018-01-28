@@ -16,16 +16,19 @@ public class RawCardSet {
 			this.s = s;
 		}
 
-		public static implicit operator CardData(cardIntModel mod)
+		public CardData ToCardData ()
 		{
 			CardData d = new CardData ();
-			d.id = mod.i;
-			d.idnext = mod.s;
-			d.idprec = mod.p;
+		
+			d.titre = "" + i;
 
-			d.imagePrincipale = Constants.UnknownZone;
-			d.imagePrecedent  = Constants.UnknownZone;
-			d.imageSuivant    = Constants.UnknownZone;
+			d.id = i;
+			d.idnext = s;
+			d.idprec = p;
+
+			d.imagePrincipale = Constants.IdToImageName(i);
+			d.imagePrecedent = Constants.IdToImageName(p);
+			d.imageSuivant = Constants.IdToImageName(s);
 
 			return d;
 		}
@@ -38,29 +41,21 @@ public class RawCardSet {
 	// Use this for initialization
 	public List<CardData> GenerateCards () 
 	{
-
-
-		Debug.Log ("initPool");
 		initPool();
-		Debug.Log ("genSolution");
 		genSolution ();
-		Debug.Log ("debugSolution");
-		debugSolution ();
-		Debug.Log ("genCircuit");
+		// debugSolution ();
 		genCircuit ();
-		Debug.Log ("debugCircuit");
-		debugCircuit ();
-		Debug.Log ("debugPool");
-		debugPool ();
+		// debugCircuit ();
+		// debugPool ();
 
-		List<CardData> cards = new List<CardData> (solution.Count + circuit.Count);
+		List<CardData> cards = new List<CardData> ();
 
 		foreach (cardIntModel c in solution) {
-			cards.Add (c);
+			cards.Add (c.ToCardData ());	
 		}
 
 		foreach (cardIntModel c in circuit) {
-			cards.Add (c);
+			cards.Add (c.ToCardData ());
 		}
 
 		return cards;
@@ -92,7 +87,7 @@ public class RawCardSet {
 		suivant = -1;
 		solution.Add (new cardIntModel (actuel, precedent, suivant));
 
-		debugPool ();
+		// debugPool ();
 	}
 
 	void genCircuit(){
@@ -112,7 +107,7 @@ public class RawCardSet {
 		circuit.Add (new cardIntModel (suivant,actuel,firstCard.i));
 		firstCard.p = suivant; 
 
-		debugCircuit();
+		// debugCircuit();
 	}
 
 	int popIndex(){
