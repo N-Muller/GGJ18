@@ -4,8 +4,11 @@ using UnityEngine;
 
 [System.Serializable]
 public class CardData {
-	string titre;
-	string imagePrincipale;
-	string imagePrecedent;
-	string imageSuivant;
+	public string titre;
+
+	public string imagePrincipale;
+	public string imagePrecedent;
+	public string imageSuivant;
+
+	public int id, idprec, idnext;
 }

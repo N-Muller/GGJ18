@@ -12,6 +12,12 @@ public class Card : MonoBehaviour, IPointerEnterHandler,IPointerExitHandler {
 	public Vector3 startPos;
 	public List<Zone> zones;
 
+	public CardData data;
+
+	public Text titre;
+	public Zone principale, precedent, suivant;
+
+
 	[ContextMenu("Initialize")]
 	void ContexMenuInit()
 	{
@@ -24,6 +30,18 @@ public class Card : MonoBehaviour, IPointerEnterHandler,IPointerExitHandler {
 		setActiveZone (false);
 		startPos = transform.position;
 	}
+
+
+	public void Initialize(CardData data, string spriteFolderPath)
+	{
+		precedent.image.sprite = ResourcesLoader.Load<Sprite> (spriteFolderPath + data.imagePrecedent);
+		suivant.image.sprite = ResourcesLoader.Load<Sprite> (spriteFolderPath + data.imageSuivant);
+		principale.image.sprite = ResourcesLoader.Load<Sprite> (spriteFolderPath + data.imagePrincipale);
+
+		titre.text = data.titre;
+	}
+
+
 
 	#region IPointerEnterHandler implementation
 

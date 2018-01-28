@@ -9,6 +9,8 @@ public class Zone : MonoBehaviour, IPointerClickHandler {
 	public bool flou = true;
 	public Sprite imagePasfloue;
 	public Sprite imageFloue;
+	public Image image;
+
 
 	void OnEnable(){
 		//TODO si player traitre :
