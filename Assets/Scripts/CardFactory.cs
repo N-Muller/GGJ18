@@ -45,4 +45,11 @@ public class CardFactory : MonoBehaviour {
 			Debug.LogError ("This was not expected");
 		}
 	}
+
+
+	public void UpdateCard( CardData data )
+	{
+		print (JsonUtility.ToJson (data));
+		Cards [data.id].Initialize (data, SpriteFolderPath);
+	}
 }

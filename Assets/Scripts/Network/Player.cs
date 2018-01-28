@@ -26,6 +26,9 @@ class Player : NetworkBehaviour
 
 	public static List<Player> Players = new List<Player> ();
 
+	[SyncVar]
+	public int id;
+
 	public Role role = Role.Undefined;
 	public List<int> hand;
 
@@ -41,6 +44,8 @@ class Player : NetworkBehaviour
 	{
 		if (isLocalPlayer)
 			LocalPlayer = this;
+
+		id = Players.Count;
 
 		Players.Add (this);
 
@@ -120,33 +125,136 @@ class Player : NetworkBehaviour
 		}
 	}
 
-	public void CardDroppedOn(int cardId, DropMe dm )
+	public bool CardDroppedOn(int cardId, DropMe dm )
 	{
+		Debug.Assert (isLocalPlayer, ":(");
+
+		print ("CardDroppedOn(int " + cardId + "," + dm);
+
 		Card c = CardFactory.Instance.Cards [cardId];
 
-
-
-		switch (dm.name) {
+		switch (dm.container.name) {
 		case "Table":
-			if (c.data.isOnTable)
-				return;
-
-
+			CmdPoser (cardId, dm.container.dmsNameToId [dm.name]);
 			break;
 		case "Main":
-			if (! c.data.isOnTable)
-				return;
-
-
+			// if (c.data.isOnTable)
+			CmdVerifier (cardId, dm.container.dmsNameToId [dm.name]);
 			break;
 		case "PlayerDrops":
-
+			CmdEnvoyer (cardId, DropIdToPlayerId (dm.container.dmsNameToId [dm.name]));
 			break;
 		}
+
+		return false;
 	}
+
+	[Command]
+	void CmdPoser( int cardId, int dropId)
+	{
+		// TODO => éviter que qqun puisse poser une carte la ou il y en a déjà une. 
+
+		hasPlayed = true;
+		CardData dat = CardFactory.Instance.Cards [cardId].data;
+
+		dat.isOnTable = true;
+		dat.slotOnTable = dropId;
+
+		hand.Remove (cardId);
+
+		RpcBroadcast (JsonUtility.ToJson(dat));
+
+		RpcHasPlayed ();
+	}
+
+	[Command]
+	void CmdEnvoyer ( int cardId, int playerId)
+	{
+		if (Players [playerId].hand.Count >= Constants.MaxHandSize) {
+			return;
+		}
+
+
+		hasPlayed = true;
+		CardData dat = CardFactory.Instance.Cards [cardId].data;
+
+		Player destinataire = Players [playerId];
+
+		destinataire.hand.Add (dat.id);
+
+		destinataire.RpcSyncClient (JsonUtility.ToJson (new SerializedPlayerData (destinataire)));
+		// TODO : the player that receive the card will have to verify it .
+
+		CardFactory.Instance.Cards [cardId].gameObject.SetActive (false);
+		CardFactory.Instance.Cards [cardId].transform.parent = CardFactory.Instance.transform;
+
+
+		RpcHasPlayed ();
+
+		return;
+	}
+
+	[Command]
+	void CmdVerifier( int cardId, int dropId)
+	{
+		hasPlayed = true;
+
+		CardData dat = CardFactory.Instance.Cards [cardId].data;
+	
+
+
+
+		bool carteTruquee = 
+			Constants.IdToImageName (dat.idnext) != dat.imageSuivant ||
+			Constants.IdToImageName (dat.idprec) != dat.imagePrecedent;
+
+
+		//TODO : interface pour dire au joueur si la carte est truquée .
+		print (carteTruquee);
+
+
+		hand.Add (cardId);
+		dat.isOnTable = false;
+		dat.slotOnTable = -1;
+
+		foreach (Player p in Players) {
+			RpcBroadcast (JsonUtility.ToJson (dat));
+		}
+
+		RpcSyncClient (JsonUtility.ToJson (new SerializedPlayerData (this)));
+
+		RpcHasPlayed ();
+	}
+
+	[Command]
+	void CmdEchanger (int playerId)
+	{
+		
+	}
+
+	[ClientRpc]
+	void RpcHasPlayed()
+	{
+		if (!isLocalPlayer)
+			return;
+
+		//TODO : bloquer les actions du joueur jusqu'au début du prochain tour. 
+	}
+
+	[ClientRpc]
+	void RpcBroadcast(string serializedDat)
+	{
+		CardFactory.Instance.UpdateCard (JsonUtility.FromJson<CardData> (serializedDat));
+	}
+
 
 	public void Reveal (Zone z)
 	{
 
+	}
+
+	public int DropIdToPlayerId(int dropId)
+	{
+		return dropId + (dropId >= id ? 1 : 0);
 	}
 }

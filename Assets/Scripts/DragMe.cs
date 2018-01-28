@@ -66,9 +66,15 @@ public class DragMe : MonoBehaviour, IBeginDragHandler, IDragHandler,IEndDragHan
 		
 		if (!dropable) {
 			target.transform.position = oldPos;
-
+			// TODO : reprendre le parent d'orginie . 
 		} else {
 			Card c = GetComponent<Card> ();
+			if (dm.container.name == "PlayerDrops" && c.data.isOnTable) {
+				target.transform.position = oldPos;
+				dropable = false;
+				return;
+			}
+
 			c.startPos = dm.transform.position;
 
 			transform.parent = dm.transform;

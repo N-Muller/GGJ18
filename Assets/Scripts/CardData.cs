@@ -17,4 +17,5 @@ public class CardData {
 	public bool precedanteRevelee = false;
 
 	public bool isOnTable = false;
+	public int slotOnTable = -1;
 }

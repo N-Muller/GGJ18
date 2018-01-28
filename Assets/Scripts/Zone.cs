@@ -33,7 +33,11 @@ public class Zone : MonoBehaviour, IPointerClickHandler {
 	public void OnPointerClick (PointerEventData eventData)
 	{
 		if (isActiveAndEnabled == true) {
-			
+			if (Player.LocalPlayer.role == Player.Role.Fourbe) {
+
+			} else {
+				Player.LocalPlayer.Reveal (this);
+			}
 		}
 	}
 	#endregion

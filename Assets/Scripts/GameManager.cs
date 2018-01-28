@@ -11,10 +11,14 @@ public class GameManager : NetworkBehaviour {
 	public int turn;
 
 	public List<CardData> cards;
+	public List<int> table;
+
 
 	// Use this for initialization
 	void Start () {
 		Instance = this;
+
+
 	}
 
 	public void StartGame ()
@@ -32,8 +36,6 @@ public class GameManager : NetworkBehaviour {
 		RpcUpdateCards (JsonUtility.ToJson (new Wrapper<List<CardData>> (cards)));
 
 		Player.InitPlayers ();
-
-
 	}
 
 	[ClientRpc]
@@ -67,29 +69,4 @@ public class GameManager : NetworkBehaviour {
 		}
 	}
 
-	[ClientRpc]
-	public void RpcUpdateHand(string serializedHand)
-	{
-		// TODO : this doesn't look good. 
-
-		DropContainer hand = DropContainer.ByName ["Main"];
-
-		hand.cardInSlot = JsonUtility.FromJson<Wrapper<List<int>>> (serializedHand);
-
-		for (int slotId = 0; slotId < hand.cardInSlot.Count; slotId++) {
-			int cardId = hand.cardInSlot [slotId];
-			if (cardId != -1) {
-				Card c = CardFactory.Instance.Cards [cardId];
-				c.gameObject.SetActive (true);
-				c.transform.parent = hand.dms [slotId].transform;
-				c.transform.position = hand.dms [slotId].transform.position;
-			}
-		}
-	}
-
-
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }

@@ -70,8 +70,16 @@ public class Card : MonoBehaviour, IPointerEnterHandler,IPointerExitHandler {
 
 		}
 
-
 		titre.text = data.titre;
+
+		if (data.isOnTable) {
+			gameObject.SetActive (true);
+			gameObject.transform.parent = DropContainer.ByName ["Table"].dms [data.slotOnTable].transform;
+			gameObject.transform.localPosition = Vector3.zero;
+		} else if (!Player.LocalPlayer.hand.Contains (data.id)) {
+			gameObject.SetActive (false);
+			gameObject.transform.parent = CardFactory.Instance.transform;
+		}
 	}
 
 
