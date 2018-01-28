@@ -51,5 +51,13 @@ public class CardFactory : MonoBehaviour {
 	{
 		print (JsonUtility.ToJson (data));
 		Cards [data.id].Initialize (data, SpriteFolderPath);
+
+		List<CardData> datas = new List<CardData> ();
+
+		foreach (var c in Cards) {
+			datas.Add (c.data);
+		}
+
+		UpdateCards (datas);
 	}
 }

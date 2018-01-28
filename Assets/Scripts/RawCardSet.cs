@@ -35,7 +35,7 @@ public class RawCardSet {
 	}
 
 	List<int> pool = new List<int>();
-	List<cardIntModel> solution = new List<cardIntModel>();
+	public List<cardIntModel> solution = new List<cardIntModel>();
 	List<cardIntModel> circuit = new List<cardIntModel>();
 
 	// Use this for initialization
@@ -75,7 +75,7 @@ public class RawCardSet {
 		int suivant = popIndex ();
 		solution.Add (new cardIntModel (actuel, precedent, suivant));
 
-		for (int i = 1; i < Constants.HandSize - 1; i++) 
+		for (int i = 1; i < Constants.TableSize - 1; i++) 
 		{
 			precedent = actuel;
 			actuel = suivant;

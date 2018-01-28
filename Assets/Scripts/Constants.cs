@@ -3,8 +3,8 @@
 public static class Constants {
 
 	public static int HandSize = 3;
-	public static int DeckSize = 6;
-	public static int PlayerCount = 2;
+	public static int DeckSize = 12;
+	public static int PlayerCount = 4;
 	public static int TableSize = 4;
 	public static int MaxHandSize = 4;
 

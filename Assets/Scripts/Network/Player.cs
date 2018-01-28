@@ -13,9 +13,11 @@ class Player : NetworkBehaviour
 	{
 		public Role role;
 		public List<int> hand;
+		public string name;
 
 		public SerializedPlayerData( Player p)
 		{
+			name = p.name;
 			role = p.role;
 			hand = p.hand;
 		}
@@ -114,14 +116,15 @@ class Player : NetworkBehaviour
 		if (isLocalPlayer) {
 			DropContainer container = DropContainer.ByName ["Main"];
 
-			for (int i = 0; i < hand.Count; i++)
-			{
+			for (int i = 0; i < hand.Count; i++) {
 				Card c = CardFactory.Instance.Cards [hand [i]];
 				c.gameObject.SetActive (true);
 				c.transform.parent = container.dms [i].transform;
 				c.transform.position = container.dms [i].transform.position;
 
 			}
+		} else {
+
 		}
 	}
 
