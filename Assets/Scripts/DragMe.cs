@@ -28,9 +28,23 @@ public class DragMe : MonoBehaviour, IBeginDragHandler, IDragHandler,IEndDragHan
 	{
 		
 		var t = target.GetComponent<Transform>();
-
-		Vector3 mouseToWorld = Camera.main.ScreenToWorldPoint (Input.mousePosition);
-		t.position = new Vector3(mouseToWorld.x,mouseToWorld.y,t.position.z);
+		RaycastHit info;
+		Vector3 pos = Input.mousePosition;
+		pos.x = Mathf.Max (Mathf.Min(1300,pos.x),70);
+		pos.y = Mathf.Max (Mathf.Min(700,pos.y),40);
+		pos.z = 1.49f;
+		Ray ray = Camera.main.ScreenPointToRay(pos);
+		if (Physics.Raycast (ray, out info)) {
+			t.position = new Vector3 (info.point.x, info.point.y, t.position.z);
+			if (info.collider.gameObject.GetComponent<DropMe> ()) {
+				dropable = true;
+			} else {
+				dropable = false;
+			}
+		} else {
+			dropable = false;
+		}
+		Debug.Log ("mtw " + Input.mousePosition);
 	}
 
 	public void OnEndDrag (PointerEventData eventData)

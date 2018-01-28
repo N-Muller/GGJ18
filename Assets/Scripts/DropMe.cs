@@ -3,15 +3,15 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class DropMe : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerExitHandler
+public class DropMe : MonoBehaviour
 {
-	public GameObject container;
+	/*public GameObject container;
 	private Color normalColor;
 	public Color highlightColor = Color.grey;
-	public int maxElements = int.MaxValue;
+	public int maxElements = int.MaxValue;*/
 
 
-	public void OnEnable ()
+	/*public void OnEnable ()
 	{
 		normalColor = GetComponent<Image>().color;
 	}
@@ -52,5 +52,5 @@ public class DropMe : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointe
 		var originalObj = data.pointerDrag;
 
 		return originalObj;
-	}
+	}*/
 }
