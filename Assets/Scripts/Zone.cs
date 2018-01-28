@@ -39,6 +39,7 @@ public class Zone : MonoBehaviour, IPointerClickHandler {
 				//Change image
 			} else {
 				Player.LocalPlayer.Reveal (this);
+				this.gameObject.SetActive (false);
 			}
 		}
 	}
