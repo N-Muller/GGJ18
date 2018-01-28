@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Hand : MonoBehaviour {
 
+	public List<Card> cards;
+
+
 	// Use this for initialization
 	void Start () {
 		

@@ -23,9 +23,9 @@ public class RawCardSet {
 			d.idnext = mod.s;
 			d.idprec = mod.p;
 
-			d.imagePrincipale = Constants.Images [mod.i];
-			d.imagePrecedent  = Constants.Images [mod.p];
-			d.imageSuivant    = Constants.Images [mod.s];
+			d.imagePrincipale = Constants.UnknownZone;
+			d.imagePrecedent  = Constants.UnknownZone;
+			d.imageSuivant    = Constants.UnknownZone;
 
 			return d;
 		}

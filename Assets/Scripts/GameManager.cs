@@ -29,7 +29,7 @@ public class GameManager : NetworkBehaviour {
 
 		cards = gen.GenerateCards ();
 
-
+		RpcUpdateCards (JsonUtility.ToJson (cards));
 
 		Player.InitPlayers ();
 
@@ -37,6 +37,12 @@ public class GameManager : NetworkBehaviour {
 
 	}
 
+	[ClientRpc]
+	void RpcUpdateCards(string serializedCards)
+	{
+		cards = JsonUtility.FromJson (serializedCards);
+		CardFactory.Instance.UpdateCards (cards);
+	}
 
 	// Update is called once per frame
 	void Update () {

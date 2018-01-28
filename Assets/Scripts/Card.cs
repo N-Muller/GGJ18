@@ -34,11 +34,18 @@ public class Card : MonoBehaviour, IPointerEnterHandler,IPointerExitHandler {
 
 	public void Initialize(CardData data, string spriteFolderPath)
 	{
-		precedent.image.sprite = ResourcesLoader.Load<Sprite> (spriteFolderPath + data.imagePrecedent);
-		suivant.image.sprite = ResourcesLoader.Load<Sprite> (spriteFolderPath + data.imageSuivant);
-		principale.image.sprite = ResourcesLoader.Load<Sprite> (spriteFolderPath + data.imagePrincipale);
+		this.data = data;
 
-		titre.text = data.titre;
+		if (Player.LocalPlayer.role == Player.Role.Fourbe) {
+			precedent.image.sprite = ResourcesLoader.Load<Sprite> (spriteFolderPath + Constants.IdToImageName(data.idprec));
+			suivant.image.sprite = ResourcesLoader.Load<Sprite> (spriteFolderPath + Constants.IdToImageName(data.idnext));
+			principale.image.sprite = ResourcesLoader.Load<Sprite> (spriteFolderPath + Constants.IdToImageName(data.id));
+		} else {
+			precedent.image.sprite = ResourcesLoader.Load<Sprite> (spriteFolderPath + data.imagePrecedent);
+			suivant.image.sprite = ResourcesLoader.Load<Sprite> (spriteFolderPath + data.imageSuivant);
+			principale.image.sprite = ResourcesLoader.Load<Sprite> (spriteFolderPath + data.imagePrincipale);
+		}
+			titre.text = data.titre;
 	}
 
 
