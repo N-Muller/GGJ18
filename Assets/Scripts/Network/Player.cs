@@ -55,7 +55,7 @@ class Player : NetworkBehaviour
 	}
 
 
-	static void InitPlayers()
+	public static void InitPlayers()
 	{
 		int fourbe = UnityEngine.Random.Range (0, Players.Count);
 		List<int> deck = new List<int> ();
