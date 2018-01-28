@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class RawCardSet : MonoBehaviour {
+public class RawCardSet {
 
 	public class cardIntModel{
 		public int i;
@@ -15,16 +15,31 @@ public class RawCardSet : MonoBehaviour {
 			this.p = p;
 			this.s = s;
 		}
+
+		public static implicit operator CardData(cardIntModel mod)
+		{
+			CardData d = new CardData ();
+			d.id = mod.i;
+			d.idnext = mod.s;
+			d.idprec = mod.p;
+
+			d.imagePrincipale = Constants.Images [mod.i];
+			d.imagePrecedent  = Constants.Images [mod.p];
+			d.imageSuivant    = Constants.Images [mod.s];
+
+			return d;
+		}
 	}
 
-	int nbCard = 12;
-	int nbCardTable = 4;
 	List<int> pool = new List<int>();
 	List<cardIntModel> solution = new List<cardIntModel>();
 	List<cardIntModel> circuit = new List<cardIntModel>();
 
 	// Use this for initialization
-	void Start () {
+	public List<CardData> GenerateCards () 
+	{
+
+
 		Debug.Log ("initPool");
 		initPool();
 		Debug.Log ("genSolution");
@@ -38,30 +53,44 @@ public class RawCardSet : MonoBehaviour {
 		Debug.Log ("debugPool");
 		debugPool ();
 
+		List<CardData> cards = new List<CardData> (solution.Count + circuit.Count);
+
+		foreach (cardIntModel c in solution) {
+			cards.Add (c);
+		}
+
+		foreach (cardIntModel c in circuit) {
+			cards.Add (c);
+		}
+
+		return cards;
 	}
 
-	void initPool(){
-		for(int i = 0;i<nbCard;i++){
+	void initPool()
+	{
+		for (int i = 0; i < Constants.DeckSize; i++) {
 			pool.Add (i);
 		}
 	}
 
-	void genSolution(){
+	void genSolution()
+	{
 		int precedent = -1;
-		int actuel = popIndex();
-		int suivant = popIndex();
-		solution.Add(new cardIntModel (actuel,precedent,suivant));
+		int actuel = popIndex ();
+		int suivant = popIndex ();
+		solution.Add (new cardIntModel (actuel, precedent, suivant));
 
-		for (int i = 1; i < nbCardTable-1; i++) {
+		for (int i = 1; i < Constants.HandSize - 1; i++) 
+		{
 			precedent = actuel;
 			actuel = suivant;
-			suivant = popIndex();
-			solution.Add (new cardIntModel (actuel,precedent,suivant));
+			suivant = popIndex ();
+			solution.Add (new cardIntModel (actuel, precedent, suivant));
 		}
 		precedent = actuel;
 		actuel = suivant;
 		suivant = -1;
-		solution.Add (new cardIntModel (actuel,precedent,suivant));
+		solution.Add (new cardIntModel (actuel, precedent, suivant));
 
 		debugPool ();
 	}
@@ -87,7 +116,7 @@ public class RawCardSet : MonoBehaviour {
 	}
 
 	int popIndex(){
-		int index = pool.ElementAt (Random.Range(0,pool.Count));
+		int index = pool.ElementAt (Random.Range (0, pool.Count));
 		pool.Remove (index);
 		return index;
 	}

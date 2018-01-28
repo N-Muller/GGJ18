@@ -11,6 +11,8 @@ public class GameManager : NetworkBehaviour {
 	public int turn;
 
 
+	List<CardData> cards;
+
 	// Use this for initialization
 	void Start () {
 		Instance = this;
@@ -23,6 +25,13 @@ public class GameManager : NetworkBehaviour {
 
 		turn = 0;
 
+		RawCardSet gen = new RawCardSet ();
+
+		cards = gen.GenerateCards ();
+
+
+
+		Player.InitPlayers ();
 
 
 
